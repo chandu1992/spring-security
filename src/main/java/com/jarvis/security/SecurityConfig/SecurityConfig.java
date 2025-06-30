@@ -15,8 +15,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
-                                "/api/student/**"
-//                                "/api/department/**"
+                                "/api/student/**","/api/department/**"
                         )
                         .permitAll()
                         //.authenticated()
