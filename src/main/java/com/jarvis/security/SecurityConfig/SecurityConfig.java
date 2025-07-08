@@ -13,10 +13,10 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+              //  .csrf(csrf -> csrf.disable()) // if we comment this line the req which have capability to change data like POST, DELETE, PUT required CSRF token to access that api
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
-                                "/api/student/**","/api/department/**","/user/**"
+                                "/api/student/**","/api/department/**","/user/**","/csrf"
                         )
                         .permitAll()
                         //.authenticated()
