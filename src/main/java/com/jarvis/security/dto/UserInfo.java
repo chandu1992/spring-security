@@ -1,5 +1,6 @@
 package com.jarvis.security.dto;
 
+
 public class UserInfo {
 
     private String firstName;

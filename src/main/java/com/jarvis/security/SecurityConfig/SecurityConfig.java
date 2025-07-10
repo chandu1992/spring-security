@@ -6,23 +6,41 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-              //  .csrf(csrf -> csrf.disable()) // if we comment this line the req which have capability to change data like POST, DELETE, PUT required CSRF token to access that api
+                .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless APIs
+                .cors(withDefaults()) // enables CORS (Cross-Origin Resource Sharing) in the security filter
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(
-                                "/api/student/**","/api/department/**","/user/**","/csrf"
-                        )
-                        .permitAll()
-                        //.authenticated()
-                        .anyRequest().denyAll()   // 403 Forbidden for every other path
+                        .requestMatchers("/api/csrf/token","/api/student/**").authenticated()
+                        .requestMatchers("/api/department/**", "/api/user/**").permitAll()
+                        .anyRequest().denyAll()
                 )
-                .httpBasic();                 // or formLogin(), jwt(), etc.
+                .httpBasic(withDefaults());
+
         return http.build();
     }
+
+
+//    @Bean
+//    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+////              .csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers(
+//                                "/api/student/**","/api/department/**","/api/user/**","api/csrf/token"
+//                        )
+//                        .permitAll()
+//                        .anyRequest().denyAll()
+//                )
+//                .httpBasic();
+//        return http.build();
+//    }
+
 }

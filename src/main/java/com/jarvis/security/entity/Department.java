@@ -1,7 +1,9 @@
 package com.jarvis.security.entity;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+@Document(collation = "departments")
 public class Department {
 
     @Field(name="depatment_name")

@@ -4,9 +4,9 @@ package com.jarvis.security.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "user_info_tbl")
+@Document(collection="users")
 public class User {
 
     @Id
