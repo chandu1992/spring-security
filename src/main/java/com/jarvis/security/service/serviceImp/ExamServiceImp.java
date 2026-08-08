@@ -15,6 +15,7 @@ public class ExamServiceImp implements ExamService {
     ExamRepo examRepo;
     @Override
     public ExamInfo schedulExam(ExamInfo exam) {
+        System.out.println("chandra");
         return examRepo.save(exam);
     }
 
